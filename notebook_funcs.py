@@ -1,5 +1,4 @@
 from __future__ import annotations
-# Sve-na-jednom: baze, evaluacija, pretprocesiranje i GUI
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,15 +7,12 @@ from PIL import Image, ImageOps, ImageFilter
 from tensorflow.keras.datasets import mnist
 
 EPS = 1e-12  # prag za "prazno" platno ili nultu normu
+seed = 123
+rel_tol = 3e-2
 
-# =========================================
-# 1) CORE: baze po klasi + predikcija kutom
-# =========================================
-def _napravi_indekse_po_klasi(y_train, *, seed=123, use_first=False, broj_klasa=None):
-    """
-    Vrati dict {klasa: permutirani_indeksi_te_klase} (reproducibilno ako je zadan seed).
-    Ako use_first=True, ne permutira.
-    """
+# Funkcije za klasifikaciju prema kutu
+
+def _napravi_indekse_po_klasi(y_train, *, seed=seed, use_first=False, broj_klasa=None):
     y_train = np.asarray(y_train).astype(int)
     if broj_klasa is None:
         broj_klasa = int(np.max(y_train)) + 1
@@ -34,11 +30,7 @@ def _napravi_indekse_po_klasi(y_train, *, seed=123, use_first=False, broj_klasa=
             indeksi_po_klasi[d] = perm
     return indeksi_po_klasi
 
-def _izgradi_baze_za_k(x_train, indeksi_po_klasi, k, *, rel_tol=1e-2):
-    """
-    Za svaku klasu uzmi prvih k uzoraka -> SVD(A), A=(dim,k); zadrži r prema rel_tol.
-    Vraća: (baze, rangovi) gdje je baze[d] = U_d[:, :r_d].
-    """
+def _izgradi_baze_za_k(x_train, indeksi_po_klasi, k, *, rel_tol=rel_tol):
     baze, rangovi = {}, {}
     for d, idx in indeksi_po_klasi.items():
         if len(idx) < k:
@@ -55,17 +47,11 @@ def _izgradi_baze_za_k(x_train, indeksi_po_klasi, k, *, rel_tol=1e-2):
         rangovi[d] = r
     return baze, rangovi
 
-def napravi_baze(x_train, y_train, *, k, seed=123, use_first=False, rel_tol=1e-2):
-    """
-    Wrapper: u jednom potezu izgradi (baze, rangovi) za zadani k.
-    """
+def napravi_baze(x_train, y_train, *, k, seed=123, use_first=False, rel_tol=rel_tol):
     indeksi = _napravi_indekse_po_klasi(y_train, seed=seed, use_first=use_first)
     return _izgradi_baze_za_k(x_train, indeksi, k, rel_tol=rel_tol)
 
 def _predikcija_po_kutu(x_vec, baze):
-    """
-    Vrati (label, theta_rad) gdje je theta kut između x i projekcije na bazu (manji je bolji).
-    """
     x = np.asarray(x_vec, dtype=np.float32).reshape(-1)
     nx = np.linalg.norm(x)
     if nx < EPS:
@@ -79,16 +65,7 @@ def _predikcija_po_kutu(x_vec, baze):
             best_theta, best_label = theta, int(label)
     return best_label, float(best_theta)
 
-# ==================================================
-# 2) EVALUACIJA + (opcionalna) MATRICA KONFUZIJE
-# ==================================================
 def evaluiraj_kut(x, y, baze, *, crtaj_matricu=True):
-    """
-    x : (N, 28, 28) ili (N, 784)
-    y : (N,)
-    baze : dict[label] = U  (784, r)
-    Vraća: (acc, konf, klase, y_pred)
-    """
     x = np.asarray(x)
     if x.ndim == 3:
         x = x.reshape(len(x), -1)
@@ -125,26 +102,16 @@ def evaluiraj_kut(x, y, baze, *, crtaj_matricu=True):
 
     return acc, konf, klase, y_pred
 
-# ==================================================
-# 3) WRAPPER ZA GUI: klasifikacija + kut u stupnjevima
-# ==================================================
 def klasificiraj_slika_kut(slika, baze):
-    """
-    Jednostavni wrapper: koristi _predikcija_po_kutu, kut vrati u stupnjevima.
-    """
+
     x = np.asarray(slika, dtype=np.float32).reshape(-1)
     if np.linalg.norm(x) < EPS:
         return -1, 90.0
     label, theta_rad = _predikcija_po_kutu(x, baze)
     return int(label), float(np.degrees(theta_rad))
 
-# ==================================================
-# 4) PRETPROCES: crtež -> MNIST-like 28x28 -> vektor
-# ==================================================
+# Pretprocesiranje slika za klasifikaciju crtanjem
 def to_mnist_like_28x28(img_pil: Image.Image) -> Image.Image:
-    """
-    Grayscale -> (po potrebi) invert -> crop foreground -> blur -> resize max dim=20 -> centriraj u 28x28 -> centroid shift.
-    """
     img = img_pil.convert("L")
     if np.array(img, dtype=np.uint8).mean() > 127:
         img = ImageOps.invert(img)
@@ -187,22 +154,13 @@ def to_mnist_like_28x28(img_pil: Image.Image) -> Image.Image:
     return Image.fromarray(np.clip(canv, 0, 255).astype(np.uint8))
 
 def img28_to_vector(img28: Image.Image) -> np.ndarray:
-    """
-    28x28 PIL -> vektor (784,) float32; po potrebi invert.
-    """
     arr = np.array(img28.convert("L"), dtype=np.uint8)
     if arr.mean() > 127:
         arr = 255 - arr
     return arr.reshape(-1).astype(np.float32)
 
-# ==================================================
-# 5) GUI ZA CRTANJE I PREDIKCIJU
-# ==================================================
+# Prozor za crtanje i klasifikaciju
 def draw_and_predict_gui(baze, scale=10, linewidth=22):
-    """
-    Lijevo: platno za crtanje; desno: normalizirana 28x28 slika.
-    Gumbi: 'Klasificiraj', 'Reset'.
-    """
     size = 28 * scale
     img = np.zeros((size, size), dtype=np.float32)
 
@@ -283,24 +241,21 @@ def draw_and_predict_gui(baze, scale=10, linewidth=22):
 
     plt.show()
 
-# =========================
-# MAIN (primjer pokretanja)
-# =========================
-if __name__ == "__main__":
-    # 1) Učitaj MNIST
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    x_train = x_train.astype(np.float32)  # vrijednosti 0–255
-    x_test  = x_test.astype(np.float32)
 
-    # 2) Izgradi baze po razredu
-    k = 100
-    baze, rangovi = napravi_baze(x_train, y_train, k=k, seed=42, use_first=False, rel_tol=3e-2)
+if __name__ == "__main__":
+    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    x_train = x_train.astype(np.float64)
+    x_test  = x_test.astype(np.float64)
+
+    # Izgradnja baza
+    k = 120
+    baze, rangovi = napravi_baze(x_train, y_train, k=k, seed=seed, use_first=False, rel_tol=rel_tol)
     print("Rangovi po klasama:", "  ".join(f"{d}:{r}" for d, r in sorted(rangovi.items())))
 
-    # 3) Kratka evaluacija (bez crtanja matrice)
+    # Kratka evaluacija (bez crtanja matrice)
     N = min(1000, len(x_test))
     acc, konf, klase, y_pred = evaluiraj_kut(x_test[:N], y_test[:N], baze, crtaj_matricu=False)
     print(f"Točnost na prvih {N} testnih slika: {acc*100:.2f}%")
 
-    # 4) GUI za crtanje i klasifikaciju
+    # GUI za crtanje i klasifikaciju
     draw_and_predict_gui(baze, scale=10, linewidth=22)
