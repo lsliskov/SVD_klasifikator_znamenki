@@ -53,9 +53,9 @@ Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 ![alt text](images/svd_image.jpg) 
 
 
-![alt text](images/singular_values.jpg) 
+![alt text](images/singular_values.png) 
 
-![alt text](images/dim_reduction.jpg) 
+![alt text](images/dim_reduction.png) 
 
 Zadržavanjem samo prvih `r` singularnih vrijednosti dobiva se  **aproksimaciju slike** i redukciju dimenzionalnosti.  
 
@@ -90,13 +90,17 @@ Mjeren je postotak točno prepoznatih znamenki.
 
 **U ovom radu treniranjem podataka i uzimanje najbolje evaluacije najbolji k iznosi 120.**
 
+![alt text](images/graph_rang.png)
+![alt text](images/graph.png)
+
 ---
 
 ## REZULTATI
-![alt text](images/correct_predictions.png.png)
-![alt text](images/incorrect_predictions.png.png)
+![alt text](images/correct_predictions.png)
+![alt text](images/incorrect_predictions.png)
+
 ---
 
 
-## AUTOR
+## AUTORI
 Lara Slišković - [GitHub profil](https://github.com/lsliskov), Violeta Tomašević – [GitHub profil](https://github.com/tvojprofil)
