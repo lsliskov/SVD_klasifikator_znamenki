@@ -44,7 +44,7 @@ gdje je `d` oznaka klase (znamenke), a `n` broj odabranih slika za tu klasu.
 
 ## SVD DEKOMPOZICIJA
 Za svaku klasu znamenke `d` računa se SVD dekompozicija:
-![alt text](svd_code.png) 
+![alt text](images/svd_code.png) 
 - `U_d` sadrži ortogonalne bazne vektore (potprostor klase)  
 - `S_d` je dijagonalna matrica singularnih vrijednosti  
 - `V_d^T` matrica s desne strane 
@@ -52,13 +52,16 @@ Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 
 ![alt text](images/svd_image.jpg) 
 
+
+![alt text](images/singular_values.jpg) 
+
+![alt text](images/dim_reduction.jpg) 
+
 Zadržavanjem samo prvih `r` singularnih vrijednosti dobiva se  **aproksimaciju slike** i redukciju dimenzionalnosti.  
 
 **Adaptivni prag** – uzimaju se svi singularni vektori čije vrijednosti prelaze zadani relativni prag.
 
-**U ovom radu zadani relativni prag se odredio treniranjem podataka i uzimanjem najbolje evaluacije, a to je 0.03.**
-
-**Koriste se samo komponente čija je „snaga” barem 3% od najjače komponente S[0].**  
+**U ovom radu zadani relativni prag se odredio treniranjem podataka i uzimanjem najbolje evaluacije, a to je 0.03.** **Koriste se samo komponente čija je „snaga” barem 3% od najjače komponente S[0].**  
 
 ![alt text](images/rang_code.png) 
 
@@ -71,6 +74,7 @@ Nova slika `x` klasificira se na temelju **projekcije slike na potprostore svih 
 
 
 Za svaku klasu `d` računa se kut između slike `x` i njezine projekcije na bazu `U_d`. Klasa kojoj pripada najmanji kut proglašava se kao predikcija.
+
 ![alt text](images/classification_code.png) 
 ![alt text](images/evaluation_code.png)
 
@@ -79,7 +83,8 @@ Za svaku klasu `d` računa se kut između slike `x` i njezine projekcije na bazu
 ## EVALUACIJA
 Klasifikator je testiran na cijelom **MNIST test skupu (10 000 slika)**.  
 Mjeren je postotak točno prepoznatih znamenki.  
-![alt text](image-6.png)
+
+![alt text](images/image-6.png)
 
 - Točnost ovisi o izboru broja slika za kreiranje baze potprostora `k` i ranga `r` te baze. Za premale ili prevelike baze i rangove klasifikator gubi na preciznosti.
 
