@@ -16,6 +16,9 @@ Ideja je da svaka klasa znamenke (0–9) može biti dobro opisana pomoću vlasti
 - **Matplotlib** – za vizualizaciju slika i rezultata  
 - **TensorFlow/Keras** – za učitavanje MNIST dataseta  
 
+## Requirements
+Requirements.txt sadrži popis potrebnih biblioteka koje se trebaju instalirati prije pokretanja skripti.
+
 ---
 
 ## UČITAVANJE PODATAKA
