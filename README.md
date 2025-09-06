@@ -43,14 +43,14 @@ gdje je `d` oznaka klase (znamenke), a `n` broj odabranih slika za tu klasu.
 
 #DODATI SLLIKU MATRICE koju napraviš
 
+---
+
 ## SVD DEKOMPOZICIJA
 Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 ![alt text](images/svd_code.png) 
 - `U_d` sadrži ortogonalne bazne vektore (potprostor klase)  
 - `S_d` je dijagonalna matrica singularnih vrijednosti  
 - `V_d^T` matrica s desne strane 
-
----
 
 ![alt text](images/svd_image.jpg) 
 
