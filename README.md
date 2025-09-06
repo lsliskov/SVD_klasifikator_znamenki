@@ -30,6 +30,7 @@ Svaka je slika dimenzije 28x28.
 
 Primjer znamenke za svaku klasu: 
 ![alt text](images/examples.png)
+
 ---
 
 ## PRIPREMA PODATAKA
@@ -39,7 +40,7 @@ Svaka slika dimenzija 28×28 pretvara se u vektor dimenzije 784, tako da se slik
 
 A_d ∈ R^(784 × n)
 gdje je `d` oznaka klase (znamenke), a `n` broj odabranih slika za tu klasu.
----
+
 #DODATI SLLIKU MATRICE koju napraviš
 
 ## SVD DEKOMPOZICIJA
@@ -49,18 +50,25 @@ Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 - `S_d` je dijagonalna matrica singularnih vrijednosti  
 - `V_d^T` matrica s desne strane 
 
+---
 
 ![alt text](images/svd_image.jpg) 
 
-Graf singularnih vrijednosti za svaku znamenku prema različitom broju trening slika prema kojima se kreirao bazni potprostor.
+---
+
+**Graf singularnih vrijednosti za svaku znamenku prema različitom broju trening slika prema kojima se kreirao bazni potprostor**
 
 ![alt text](images/singular_values.png) 
 
-Redukcija dimenzionalnosti slika znamenki
+---
+
+**Redukcija dimenzionalnosti slika znamenki**
 
 Zadržavanjem samo prvih `r` singularnih vrijednosti reducira se dimenzionalnost i dobiva se  **aproksimacija slike**. Ali uzimanjem premalog ranga `r` gube se bitne informacije slika znamenki.
 
 ![alt text](images/dim_reduction.png) 
+
+---
 
 **Adaptivni prag** – uzimaju se svi singularni vektori čije vrijednosti prelaze zadani relativni prag.
 
