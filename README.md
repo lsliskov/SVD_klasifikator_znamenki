@@ -55,14 +55,21 @@ Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 Zadržavanjem samo prvih `r` singularnih vrijednosti dobiva se  **aproksimaciju slike** i redukciju dimenzionalnosti.  
 
 **Adaptivni prag** – uzimaju se svi singularni vektori čije vrijednosti prelaze zadani relativni prag.
+
 **U ovom radu zadani relativni prag se odredio treniranjem podataka i uzimanjem najbolje evaluacije, a to je 0.03.**
+
 **Koriste se samo komponente čija je „snaga” barem 3% od najjače komponente S[0].**  
+
 ![alt text](images/rang_code.png) 
+
 ---
 
 ## KLASIFIKATOR
 Nova slika `x` klasificira se na temelju **projekcije slike na potprostore svih klasa**. 
+
 ![alt text](images/angle.png) 
+
+
 Za svaku klasu `d` računa se kut između slike `x` i njezine projekcije na bazu `U_d`. Klasa kojoj pripada najmanji kut proglašava se kao predikcija.
 ![alt text](images/classification_code.png) 
 ![alt text](images/evaluation_code.png)
