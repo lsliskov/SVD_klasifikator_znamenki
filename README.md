@@ -51,7 +51,7 @@ Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 - `V_d^T` matrica s desne strane 
 
 
-![alt text](images/svd_image.png) 
+![alt text](../images/svd_image.png) 
 
 Zadržavanjem samo prvih `r` singularnih vrijednosti dobivamo **aproksimaciju slike** i redukciju dimenzionalnosti.  
 
