@@ -33,9 +33,9 @@ Primjer znamenke za svaku klasu:
 ---
 
 ## PRIPREMA PODATAKA
-Za treniranje klasifikatora odabire se **fiksan broj slika po klasi** (npr. 100 ili više slika za svaku znamenku).  
+Za treniranje klasifikatora odabire se **fiksan broj slika po klasi** 
+Kroz ovaj rad, najbolja točnost se dobiva koristeći 120 slika po klasi. 
 Svaka slika dimenzija 28×28 pretvara se u vektor dimenzije 784, tako da se slike mogu slagati u matricu oblika:
-
 
 A_d ∈ R^(784 × n)
 gdje je `d` oznaka klase (znamenke), a `n` broj odabranih slika za tu klasu.
@@ -52,12 +52,15 @@ Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 
 ![alt text](images/svd_image.jpg) 
 
+Graf singularnih vrijednosti za svaku znamenku prema različitom broju trening slika prema kojima se kreirao bazni potprostor.
 
 ![alt text](images/singular_values.png) 
 
-![alt text](images/dim_reduction.png) 
+Redukcija dimenzionalnosti slika znamenki
 
-Zadržavanjem samo prvih `r` singularnih vrijednosti dobiva se  **aproksimaciju slike** i redukciju dimenzionalnosti.  
+Zadržavanjem samo prvih `r` singularnih vrijednosti reducira se dimenzionalnost i dobiva se  **aproksimacija slike**. Ali uzimanjem premalog ranga `r` gube se bitne informacije slika znamenki.
+
+![alt text](images/dim_reduction.png) 
 
 **Adaptivni prag** – uzimaju se svi singularni vektori čije vrijednosti prelaze zadani relativni prag.
 
@@ -87,8 +90,6 @@ Mjeren je postotak točno prepoznatih znamenki.
 ![alt text](images/image-6.png)
 
 - Točnost ovisi o izboru broja slika za kreiranje baze potprostora `k` i ranga `r` te baze. Za premale ili prevelike baze i rangove klasifikator gubi na preciznosti.
-
-**U ovom radu treniranjem podataka i uzimanje najbolje evaluacije najbolji k iznosi 120.**
 
 ![alt text](images/graph_rang.png)
 ![alt text](images/graph.png)
