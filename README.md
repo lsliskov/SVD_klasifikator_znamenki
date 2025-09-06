@@ -16,8 +16,6 @@ Ideja je da svaka klasa znamenke (0–9) može biti dobro opisana pomoću vlasti
 - **NumPy** – za rad s matricama i algebarske operacije  
 - **Matplotlib** – za vizualizaciju slika i rezultata  
 - **TensorFlow/Keras** – za učitavanje MNIST dataseta  
-- **Dataclasses / Typing** – pomoćne strukture i tipovi podataka
-- **Pyplot** - podmodul unutar biblioteke Matplotlib koji omogućuje uredan i jasan grafički prikaz
 
 ---
 
@@ -52,8 +50,8 @@ Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 - `S_d` je dijagonalna matrica singularnih vrijednosti  
 - `V_d^T` matrica s desne strane 
 
-#VIZUALIZIRATI RASTAV?
-![alt text](image-11.png) 
+
+![alt text](/images/svd_image.png) 
 
 Zadržavanjem samo prvih `r` singularnih vrijednosti dobivamo **aproksimaciju slike** i redukciju dimenzionalnosti.  
 
