@@ -134,6 +134,7 @@ Provedeni koraci pretprocesiranja:
 <p>&nbsp;</p>
 
 Primjer:
+
 ![alt text](images/crtanje.png)
 
 ---
