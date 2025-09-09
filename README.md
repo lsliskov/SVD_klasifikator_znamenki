@@ -107,7 +107,7 @@ Mjeren je postotak točno prepoznatih znamenki.
 ![alt text](images/evaluiraj_code.png)
 ![alt text](images/postotak.png)
 
-- Točnost ovisi o izboru broja slika za kreiranje baze potprostora `k` i ranga `r` te baze. Za premale ili prevelike baze i rangove klasifikator gubi na preciznosti.
+- **Točnost ovisi o izboru broja slika za kreiranje baze potprostora `k` i ranga `r` te baze**. Za premale ili prevelike baze i rangove klasifikator gubi na preciznosti.
 
 ![alt text](images/graph_rang.png)
 ![alt text](images/graph.png)
@@ -126,9 +126,10 @@ U produžetku rada razvijena je i skripta za prepoznavanje vlastoručno grafičk
 
 Logika iza prepoznavanja novih znamenki je ta da se one prvo obrade na isti način kao i one od kojih je kreiran MNIST dataset. 
 
-Provedeni koraci predobrade: > 1. Skaliranje u okvir 20x20 px
-                             > 2. Normaliziranje
-                             > 3. Centriranje u okvir 28x28 px.
+Provedeni koraci predobrade:
+1. Skaliranje u okvir 20x20 px
+2. Normaliziranje
+3. Centriranje u okvir 28x28 px.
 
 ![alt text](images/crtanje.png)
 
