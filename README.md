@@ -131,7 +131,9 @@ Provedeni koraci pretprocesiranja:
 2. Normaliziranje
 3. Centriranje u okvir 28x28 px.
 
+<p>&nbsp;</p>
 
+Primjer:
 ![alt text](images/crtanje.png)
 
 ---
