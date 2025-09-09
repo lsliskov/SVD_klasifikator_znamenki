@@ -127,10 +127,11 @@ U produžetku rada razvijena je i skripta za prepoznavanje vlastoručno grafičk
 **Logika iza prepoznavanja novih znamenki je ta da se one prvo obrade na isti način kao i one od kojih je kreiran MNIST dataset**. 
 
 Provedeni koraci pretprocesiranja:
-1. Skaliranje u okvir 20x20 px
-2. Normaliziranje
-3. Centriranje u okvir 28x28 px.
+**1. Skaliranje u okvir 20x20 px**
+**2. Normaliziranje**
+**3. Centriranje u okvir 28x28 px**.
 
+<p>&nbsp;</p>
 
 Primjer:
 
