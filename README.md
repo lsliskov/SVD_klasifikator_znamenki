@@ -9,15 +9,21 @@ Za ovaj projekt korišten je **MNIST dataset**, koji sadrži 70 000 slika znamen
 Cilj projekta je iskoristiti **Singular Value Decomposition (SVD)** za izgradnju klasifikatora znamenki.  
 Ideja je da svaka klasa znamenke (0–9) može biti dobro opisana pomoću vlastitog **potprostora** generiranog SVD-om, a nova slika se klasificira prema tome kojem je potprostoru najbliža.
 
+Sam problem klasifikacije znamenki unutar MNIST dataseta rješen je unutar skripte **klasifikator.ipynb**, dok je u skripti **klasifikator_crtanje.py** ponuđeno crtanje novih znamenki i njihova klasifikacija.
+
 ---
 
 ## BIBLIOTEKE
 - **NumPy** – za rad s matricama i algebarske operacije  
 - **Matplotlib** – za vizualizaciju slika i rezultata  
+- **Pillow** - za rad s vanjskim slikama i pomoćne transformacije
 - **TensorFlow/Keras** – za učitavanje MNIST dataseta  
 
 ## Requirements
-Requirements.txt sadrži popis potrebnih biblioteka koje se trebaju instalirati prije pokretanja skripti.
+Prije pokretanja skripti potrebno je instalirati biblioteke unutar requirements.txt.
+To je moguće napraviti u konzoli naredbom: pip install -r requirements.txt.
+
+Testirano na 3.10 i 3.12 Python verzijama.
 
 ---
 
@@ -41,10 +47,10 @@ Za treniranje klasifikatora odabire se **fiksan broj slika po klasi**
 Kroz ovaj rad, najbolja točnost se dobiva koristeći 120 slika po klasi. 
 Svaka slika dimenzija 28×28 pretvara se u vektor dimenzije 784, tako da se slike mogu slagati u matricu oblika:
 
-A_d ∈ R^(784 × n)
-gdje je `d` oznaka klase (znamenke), a `n` broj odabranih slika za tu klasu.
+A_d ∈ R^(784 × k)
+gdje je `d` oznaka klase (znamenke), a `k` broj odabranih slika za tu klasu.
 
-#DODATI SLLIKU MATRICE koju napraviš
+![alt text](images/pretvorba.jpg) 
 
 ---
 
@@ -98,7 +104,8 @@ Za svaku klasu `d` računa se kut između slike `x` i njezine projekcije na bazu
 Klasifikator je testiran na cijelom **MNIST test skupu (10 000 slika)**.  
 Mjeren je postotak točno prepoznatih znamenki.  
 
-![alt text](images/image-6.png)
+![alt text](images/evaluiraj_code.png)
+![alt text](images/postotak.png)
 
 - Točnost ovisi o izboru broja slika za kreiranje baze potprostora `k` i ranga `r` te baze. Za premale ili prevelike baze i rangove klasifikator gubi na preciznosti.
 
@@ -113,6 +120,19 @@ Mjeren je postotak točno prepoznatih znamenki.
 
 ---
 
+## KLASIFIKACIJA NOVIH ZNAMENKI
+
+U produžetku rada razvijena je i skripta za prepoznavanje vlastoručno grafički nacrtanih znamenki, koristeći funkcije klasifikacije koje su prethodno definirane za MNIST dataset.
+
+Logika iza prepoznavanja novih znamenki je tada da se one prvo obrade na isti način kao i one od kojih je kreiran MNIST dataset. 
+
+Provedeni koraci predobrade: 1. Skaliranje u okvir 20x20 px
+                             2. Normaliziranje
+                             3. Centriranje u okvir 28x28 px.
+
+![alt text](images/crtanje.png)
+
+---
 
 ## AUTORI
 Lara Slišković - [GitHub profil](https://github.com/lsliskov), Violeta Tomašević – [GitHub profil](https://github.com/tvojprofil)
