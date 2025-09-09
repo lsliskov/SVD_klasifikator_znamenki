@@ -124,12 +124,13 @@ Mjeren je postotak točno prepoznatih znamenki.
 
 U produžetku rada razvijena je i skripta za prepoznavanje vlastoručno grafički nacrtanih znamenki, koristeći funkcije klasifikacije koje su prethodno definirane za MNIST dataset.
 
-Logika iza prepoznavanja novih znamenki je ta da se one prvo obrade na isti način kao i one od kojih je kreiran MNIST dataset. 
+**Logika iza prepoznavanja novih znamenki je ta da se one prvo obrade na isti način kao i one od kojih je kreiran MNIST dataset**. 
 
-Provedeni koraci predobrade:
+Provedeni koraci pretprocesiranja:
 1. Skaliranje u okvir 20x20 px
 2. Normaliziranje
 3. Centriranje u okvir 28x28 px.
+
 
 ![alt text](images/crtanje.png)
 
