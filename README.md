@@ -61,7 +61,7 @@ Za svaku klasu znamenke `d` računa se SVD dekompozicija:
 - `S_d` je dijagonalna matrica singularnih vrijednosti  
 - `V_d^T` matrica s desne strane 
 
-![alt text](images/svd_image.jpg) 
+![alt text](images/svd_img.jpg) 
 
 ---
 
